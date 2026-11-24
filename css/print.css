@@ -1,0 +1,13 @@
+/* ============================================================
+   Impresión / PDF
+   ============================================================ */
+@page { size: A4; margin: 12mm; }
+html, body { background: #fff !important; height: auto; }
+#app { display: block; height: auto; }
+.cab, .nav, #banner, #avisos, .fab, .no-print, .hoja-fondo, .panel-biblio, .parte-btns, .manija, .mas { display: none !important; }
+#vista { overflow: visible; padding: 0 !important; }
+.impresion { box-shadow: none; padding: 0; max-width: none; border-radius: 0; }
+.imp-tarea, .dia, .tarea { break-inside: avoid; page-break-inside: avoid; }
+.imp-diag { max-height: 9cm; object-fit: contain; }
+.dia, .tarea, .parte { box-shadow: none; border: 1px solid #ccc; }
+* { -webkit-print-color-adjust: exact; print-color-adjust: exact; }

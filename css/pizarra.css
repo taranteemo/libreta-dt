@@ -1,0 +1,83 @@
+/* ============================================================
+   Pizarra a pantalla completa (pensada para el celu en horizontal)
+   ============================================================ */
+body.pz-abierta { overflow: hidden; }
+body.pz-abierta #app { visibility: hidden; }
+
+.pz {
+  position: fixed; inset: 0; z-index: 500;
+  display: grid; grid-template-columns: auto 1fr auto;
+  background: #0E2236; color: #fff;
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+}
+.pz-barra {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: calc(6px + var(--sa-t)) 5px calc(6px + var(--sa-b));
+  overflow-y: auto; scrollbar-width: none;
+}
+.pz-barra::-webkit-scrollbar { display: none; }
+.pz-izq { padding-left: calc(5px + var(--sa-l)); }
+.pz-der { padding-right: calc(5px + var(--sa-r)); }
+.pz-flex { flex: 1; min-height: 4px; }
+
+.pz-btn {
+  position: relative; flex: none;
+  display: grid; place-items: center; width: 46px; height: 44px;
+  border: 0; border-radius: 11px; background: rgba(255,255,255,.07);
+}
+.pz-btn:active { background: rgba(255,255,255,.18); }
+.pz-btn.activo { background: var(--c-prim); box-shadow: inset 0 0 0 2px var(--c-dest); }
+.pz-mas { position: absolute; right: 2px; bottom: 0; font-size: 9px; color: var(--c-dest); }
+.pz-listo { background: var(--c-dest); height: 50px; }
+
+.pz-lienzo { position: relative; overflow: hidden; }
+.pz-canvas { position: absolute; inset: 0; touch-action: none; display: block; }
+.pz-titulo {
+  position: absolute; top: calc(6px + var(--sa-t)); left: 50%; transform: translateX(-50%);
+  max-width: 70%; padding: 3px 12px; border-radius: 12px; background: rgba(0,0,0,.35);
+  font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;
+}
+
+.pz-minibar {
+  position: absolute; display: none; gap: 2px; padding: 4px; z-index: 3;
+  background: rgba(10, 25, 42, .94); border-radius: 14px; box-shadow: 0 6px 18px rgba(0,0,0,.4);
+}
+.pz-minibar.visible { display: flex; }
+.pz-mb {
+  min-width: 42px; height: 40px; padding: 0 10px; border: 0; border-radius: 10px;
+  background: transparent; color: #fff; font-weight: 700; font-size: 14px; white-space: nowrap;
+}
+.pz-mb:active { background: rgba(255,255,255,.15); }
+.pz-mb-color::before { content: ''; display: inline-block; width: 20px; height: 20px; border-radius: 50%; background: var(--c, #fff); box-shadow: 0 0 0 2px #fff; vertical-align: middle; }
+.pz-mb-peligro { color: #FF8A95; }
+
+.pz-pop {
+  position: absolute; left: 4px; display: none; flex-direction: column; gap: 4px; padding: 6px; z-index: 4;
+  background: rgba(10, 25, 42, .96); border-radius: 14px; box-shadow: 0 6px 18px rgba(0,0,0,.4);
+}
+.pz-pop.visible { display: flex; }
+.pz-sub { width: auto; padding: 0 12px 0 6px; display: flex; gap: 8px; justify-content: flex-start; }
+.pz-sub.activo { background: var(--c-prim); }
+.pz-sub-txt { font-size: 14px; font-weight: 700; }
+
+/* Celular en vertical: solo ver; para editar hay que girar */
+.pz-girar {
+  position: absolute; left: 0; right: 0; bottom: 0; display: none;
+  align-items: center; justify-content: center; gap: 10px; padding: 12px;
+  background: rgba(0,0,0,.55); font-weight: 800; pointer-events: none;
+}
+.pz-girar p { margin: 0; }
+.pz-girar-ico { font-size: 26px; }
+.pz.vertical { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+.pz.vertical .pz-izq { display: none; }
+.pz.vertical .pz-der { flex-direction: row; justify-content: flex-end; padding: 6px calc(10px + var(--sa-r)) calc(6px + var(--sa-b)); }
+.pz.vertical .pz-edita, .pz.vertical .pz-flex { display: none; }
+.pz.vertical .pz-girar { display: flex; }
+.pz.vertical .pz-minibar { display: none !important; }
+
+/* Pantallas grandes (iPad): botones un poco más grandes */
+@media (min-width: 900px) and (min-height: 600px) {
+  .pz-btn { width: 56px; height: 52px; }
+  .pz-btn svg { width: 30px; height: 30px; }
+}
+.hoja-fondo.oculta-pz { display: none; }
